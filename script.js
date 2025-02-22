@@ -9,4 +9,16 @@ function getComputerChoice() {
     }
 }
 
-console.log(getComputerChoice());
+function getHumanChoice() {
+    let isChoiceCorrect = false;
+    while(!isChoiceCorrect) {
+        let humanChoice = prompt("Choose rock, paper or scissors!")
+        if (humanChoice === "rock" | humanChoice === "paper" | humanChoice === "scissors") {
+            return humanChoice;
+        } else {
+            console.log("Please enter a valid choice. The choice is case-sensitive.");
+        }
+    }
+}
+
+console.log(getHumanChoice());
