@@ -46,10 +46,10 @@ function playRound(humanChoice, computerChoice = getComputerChoice()) {
         results.appendChild(p);
     } 
 
-    currentScore();
+    showCurrentScore();
 }
 
-function currentScore() {
+function showCurrentScore() {
     const p = document.createElement("p");
     p.textContent = "You: " + humanScore + " Computer: " + computerScore;
     results.appendChild(p);
