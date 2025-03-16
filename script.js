@@ -5,6 +5,7 @@ const results = document.querySelector("#results");
 
 let humanScore = 0;
 let computerScore = 0;
+let roundCount = 0;
 
 function getComputerChoice() {
     let randomNum = Math.random();
@@ -46,7 +47,12 @@ function playRound(humanChoice, computerChoice = getComputerChoice()) {
         results.appendChild(p);
     } 
 
+    roundCount++;
     showCurrentScore();
+
+    if (roundCount % 5 === 0 && roundCount != 0) {
+        announceWinner();
+    }
 }
 
 function showCurrentScore() {
@@ -61,25 +67,17 @@ function clearResults() {
     }
 }
 
-/*
-function playGame() {
-    
-    for (i = 0; i < 5; i++) {
-        console.log(playRound(getHumanChoice(), getComputerChoice()));
-        console.log(currentScore());
-    }
+function announceWinner() {
+    const p = document.createElement("p");
 
     if (humanScore != computerScore) {
         let finalWinner = (humanScore > computerScore) ? "You" : "Computer";
-        console.log("The final winner is: " + finalWinner);    
+        p.textContent = "The current winner is: " + finalWinner;
     } else {
-        console.log("The final score is a Draw!")
+        p.textContent = "The current score is a Draw!";
     }
-    console.log(currentScore());
+    results.appendChild(p);
 }
-
-playGame();
-*/
 
 rockBtn.addEventListener("click", () => playRound("rock"));
 paperBtn.addEventListener("click", () => playRound("paper"));
