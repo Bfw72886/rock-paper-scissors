@@ -1,3 +1,12 @@
+const rockBtn = document.querySelector("#rock");
+const paperBtn = document.querySelector("#paper");
+const scissorsBtn = document.querySelector("#scissors");
+const results = document.querySelector("#results");
+
+let humanScore = 0;
+let computerScore = 0;
+
+/*
 function getHumanChoice() {
     let isChoiceCorrect = false;
     while(!isChoiceCorrect) {
@@ -9,6 +18,7 @@ function getHumanChoice() {
         }
     }
 }
+*/
 
 function getComputerChoice() {
     let randomNum = Math.random();
@@ -21,35 +31,53 @@ function getComputerChoice() {
     }
 }
 
+function playRound(humanChoice, computerChoice = getComputerChoice()) {
+    clearResults();
 
+    let capitalizedHumanChoice = String(humanChoice).charAt(0).toUpperCase() + String(humanChoice).slice(1);
+    let capitalizedComputerChoice = String(computerChoice).charAt(0).toUpperCase() + String(computerChoice).slice(1);
+
+    let humanWon = humanChoice === "rock" && computerChoice === "scissors" || 
+                    humanChoice === "paper" && computerChoice === "rock" ||
+                    humanChoice === "scissors" && computerChoice === "paper";
+    let computerWon = humanChoice === "scissors" && computerChoice === "rock" ||
+                    humanChoice === "rock" && computerChoice === "paper" ||
+                    humanChoice === "paper" && computerChoice === "scissors";
+
+    if (humanWon) {
+        humanScore++;
+        const p = document.createElement("p");
+        p.textContent = "You won! " + capitalizedHumanChoice + " beats " + capitalizedComputerChoice;
+        results.appendChild(p);
+    } else if (computerWon) {
+        computerScore++;
+        const p = document.createElement("p");
+        p.textContent = "You lost! " + capitalizedComputerChoice + " beats " + capitalizedHumanChoice;
+        results.appendChild(p);
+    } else {
+        const p = document.createElement("p");
+        p.textContent = "It's a Draw. You both chose " + capitalizedHumanChoice;
+        results.appendChild(p);
+    } 
+
+    currentScore();
+}
+
+function currentScore() {
+    const p = document.createElement("p");
+    p.textContent = "You: " + humanScore + " Computer: " + computerScore;
+    results.appendChild(p);
+}
+
+function clearResults() {
+    while (results.firstChild) {
+        results.removeChild(results.firstChild);
+    }
+}
+
+/*
 function playGame() {
-    let humanScore = 0;
-    let computerScore = 0;
-
-    function playRound(humanChoice, computerChoice) {
-        let capitalizedHumanChoice = String(humanChoice).charAt(0).toUpperCase() + String(humanChoice).slice(1);
-        let capitalizedComputerChoice = String(computerChoice).charAt(0).toUpperCase() + String(computerChoice).slice(1);
-        let humanWon = humanChoice === "rock" && computerChoice === "scissors" || 
-                        humanChoice === "paper" && computerChoice === "rock" ||
-                        humanChoice === "scissors" && computerChoice === "paper";
-        let computerWon = humanChoice === "scissors" && computerChoice === "rock" ||
-                        humanChoice === "rock" && computerChoice === "paper" ||
-                        humanChoice === "paper" && computerChoice === "scissors";
-        if (humanWon) {
-            humanScore++;
-            return "You won! " + capitalizedHumanChoice + " beats " + capitalizedComputerChoice;
-        } else if (computerWon) {
-            computerScore++;
-            return "You lost! " + capitalizedComputerChoice + " beats " + capitalizedHumanChoice;
-        } else {
-            return "It's a Draw. You both chose " + capitalizedHumanChoice;
-        }
-    }
-
-    function currentScore() {
-        return "You: " + humanScore + " Computer: " + computerScore;
-    }
-
+    
     for (i = 0; i < 5; i++) {
         console.log(playRound(getHumanChoice(), getComputerChoice()));
         console.log(currentScore());
@@ -65,3 +93,8 @@ function playGame() {
 }
 
 playGame();
+*/
+
+rockBtn.addEventListener("click", () => playRound("rock"));
+paperBtn.addEventListener("click", () => playRound("paper"));
+scissorsBtn.addEventListener("click", () => playRound("scissors"));
