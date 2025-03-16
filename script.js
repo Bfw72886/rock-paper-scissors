@@ -6,20 +6,6 @@ const results = document.querySelector("#results");
 let humanScore = 0;
 let computerScore = 0;
 
-/*
-function getHumanChoice() {
-    let isChoiceCorrect = false;
-    while(!isChoiceCorrect) {
-        let humanChoice = prompt("Choose rock, paper or scissors!").toLowerCase();
-        if (humanChoice === "rock" || humanChoice === "paper" || humanChoice === "scissors") {
-            return humanChoice;
-        } else {
-            alert("Please enter a valid choice.");
-        }
-    }
-}
-*/
-
 function getComputerChoice() {
     let randomNum = Math.random();
     if (randomNum <= 0.33) {
